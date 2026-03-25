@@ -59,3 +59,41 @@ docker run -p 8080:8080 pokedex_api
 - Fetch Pokemon by Name:
 
   `curl -X GET "http://localhost:8080/api/v1/pokemon?name=Pikachu"`
+
+## GraphQL Support
+
+This project also includes support for GraphQL.
+
+### GraphQL Endpoint
+
+- URL: `/graphql`
+- Method: `POST`
+- Description: Endpoint to handle GraphQL queries.
+
+### Example GraphQL Queries
+
+- Query Pokemon by ID:
+
+```gql
+query {
+  pokemonById(id: 25) {
+    id
+    name
+    types
+    # Add more fields here
+  }
+}
+```
+
+- Query Pokemon by Name:
+
+```gql 
+query {
+  pokemonByName(name: "Pikachu") {
+    id
+    name
+    types
+    # Add more fields here
+  }
+}
+```

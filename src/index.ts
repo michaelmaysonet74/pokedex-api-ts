@@ -1,11 +1,14 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import * as pokedex from "./pokedex";
+import gql from "./gql";
+import pokedex from "./pokedex";
 
 const app = new Hono();
 
 app.use(logger());
+
+app.use("/graphql", async (c) => gql.handle(c.req.raw));
 
 app.get("/api/v1/pokemon/:id", async (c) => {
   const { id } = c.req.param();

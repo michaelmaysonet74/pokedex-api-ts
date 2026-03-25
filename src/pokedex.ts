@@ -45,10 +45,10 @@ const findPokemonBy = async (col: PgColumn, query: string | number) => {
               speed: pokemonResult.baseStats.speed,
             }
           : null,
-        evolutions: normalizeEvolutionChain(
+        evolution: normalizeEvolutionChain(
           pokemonResult.evolutions as EvolutionChain,
         ),
-        measurements: pokemonResult.measurements
+        measurement: pokemonResult.measurements
           ? {
               height: pokemonResult.measurements.height,
               weight: pokemonResult.measurements.weight,
@@ -58,8 +58,9 @@ const findPokemonBy = async (col: PgColumn, query: string | number) => {
     : null;
 };
 
-export const getPokemonByName = async (name: string) =>
+const getPokemonById = async (id: number) => findPokemonBy(pokemon.id, id);
+
+const getPokemonByName = async (name: string) =>
   findPokemonBy(pokemon.name, name);
 
-export const getPokemonById = async (id: number) =>
-  findPokemonBy(pokemon.id, id);
+export default { getPokemonById, getPokemonByName };
