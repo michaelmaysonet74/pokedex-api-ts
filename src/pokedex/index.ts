@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 import { PgColumn } from "drizzle-orm/pg-core";
 
-import db from "./db";
-import { pokemon } from "./db/schema";
+import db from "../db";
+import { pokemon } from "../db/schema";
 
 import type { EvolutionChain } from "./evolution";
 import { normalizeEvolutionChain } from "./evolution";

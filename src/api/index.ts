@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 
-import pokedex from "./pokedex";
+import pokedex from "../pokedex";
 
 const api = new Hono();
 
