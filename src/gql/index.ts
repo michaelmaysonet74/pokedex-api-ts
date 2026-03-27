@@ -3,7 +3,7 @@ import { createSchema, createYoga } from "graphql-yoga";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
 
-const yoga = createYoga({
+const gql = createYoga({
   schema: createSchema({
     typeDefs,
     resolvers,
@@ -11,4 +11,4 @@ const yoga = createYoga({
   graphiql: false,
 });
 
-export default yoga;
+export default gql;
