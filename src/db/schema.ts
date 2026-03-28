@@ -8,6 +8,10 @@ import {
   jsonb,
 } from "drizzle-orm/pg-core";
 
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
+
 export interface EvolutionNode {
   id: string;
   name: string;
@@ -18,12 +22,14 @@ export type BaseStatsRecord = typeof baseStats.$inferSelect;
 export type EvolutionRecord = typeof evolutions.$inferSelect;
 export type MeasurementsRecord = typeof measurements.$inferSelect;
 
-export type PokemonRecord = typeof pokemon.$inferSelect & {
-  abilities?: AbilityRecord[];
-  baseStats?: BaseStatsRecord | null;
-  evolutions?: EvolutionRecord | null;
-  measurements?: MeasurementsRecord | null;
-};
+export type PokemonRecord = Prettify<
+  typeof pokemon.$inferSelect & {
+    abilities?: AbilityRecord[];
+    baseStats?: BaseStatsRecord | null;
+    evolutions?: EvolutionRecord | null;
+    measurements?: MeasurementsRecord | null;
+  }
+>;
 
 export const abilities = pgTable("abilities", {
   id: serial("id").primaryKey(),
