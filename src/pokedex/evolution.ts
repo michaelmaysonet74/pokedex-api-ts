@@ -1,17 +1,9 @@
-export interface Evolution {
-  id: string;
-  name: string;
-}
+import { EvolutionNode, EvolutionRecord } from "../db/schema";
 
-export interface EvolutionChain {
-  from: Evolution;
-  to: Evolution[];
-}
-
-const normalizeEvolution = (evolution: Evolution | null) =>
+const normalizeEvolution = (evolution: EvolutionNode | null) =>
   evolution && Object.keys(evolution).length > 0 ? evolution : null;
 
-export const normalizeEvolutionChain = (chain: EvolutionChain) => ({
+export const buildEvolution = (chain: EvolutionRecord) => ({
   from: normalizeEvolution(chain.from),
   to: chain.to.length > 0 ? chain.to.map(normalizeEvolution) : null,
 });

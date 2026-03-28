@@ -29,6 +29,7 @@ export const typeDefs = `
     specialAttack: Int!
     specialDefense: Int!
     speed: Int!
+    total: Int!
   }
 
   type EvolutionChain {

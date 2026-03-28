@@ -8,37 +8,22 @@ import {
   jsonb,
 } from "drizzle-orm/pg-core";
 
-export const pokemon = pgTable("pokemon", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  category: text("category"),
-  entry: text("entry"),
-  generation: integer("generation"),
-  sprite: text("sprite"),
-  types: text("types").array(),
-  immunities: text("immunities").array(),
-  resistances: text("resistances").array(),
-  weaknesses: text("weaknesses").array(),
-});
+export interface EvolutionNode {
+  id: string;
+  name: string;
+}
 
-export const pokemonRelations = relations(pokemon, ({ many, one }) => ({
-  abilities: many(abilities),
+export type AbilityRecord = typeof abilities.$inferSelect;
+export type BaseStatsRecord = typeof baseStats.$inferSelect;
+export type EvolutionRecord = typeof evolutions.$inferSelect;
+export type MeasurementsRecord = typeof measurements.$inferSelect;
 
-  baseStats: one(baseStats, {
-    fields: [pokemon.id],
-    references: [baseStats.pokemonId],
-  }),
-
-  evolutions: one(evolutions, {
-    fields: [pokemon.id],
-    references: [evolutions.pokemonId],
-  }),
-
-  measurements: one(measurements, {
-    fields: [pokemon.id],
-    references: [measurements.pokemonId],
-  }),
-}));
+export type PokemonRecord = typeof pokemon.$inferSelect & {
+  abilities?: AbilityRecord[];
+  baseStats?: BaseStatsRecord | null;
+  evolutions?: EvolutionRecord | null;
+  measurements?: MeasurementsRecord | null;
+};
 
 export const abilities = pgTable("abilities", {
   id: serial("id").primaryKey(),
@@ -88,8 +73,8 @@ export const evolutions = pgTable("evolution_chains", {
     .notNull()
     .references(() => pokemon.id),
 
-  from: jsonb("from"),
-  to: jsonb("to"),
+  from: jsonb("from").$type<EvolutionNode>().notNull(),
+  to: jsonb("to").$type<EvolutionNode[]>().notNull(),
 });
 
 export const evolutionRelations = relations(evolutions, ({ one }) => ({
@@ -114,5 +99,37 @@ export const measurementsRelations = relations(measurements, ({ one }) => ({
   pokemon: one(pokemon, {
     fields: [measurements.pokemonId],
     references: [pokemon.id],
+  }),
+}));
+
+export const pokemon = pgTable("pokemon", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  category: text("category"),
+  entry: text("entry"),
+  generation: integer("generation"),
+  sprite: text("sprite"),
+  types: text("types").array(),
+  immunities: text("immunities").array(),
+  resistances: text("resistances").array(),
+  weaknesses: text("weaknesses").array(),
+});
+
+export const pokemonRelations = relations(pokemon, ({ many, one }) => ({
+  abilities: many(abilities),
+
+  baseStats: one(baseStats, {
+    fields: [pokemon.id],
+    references: [baseStats.pokemonId],
+  }),
+
+  evolutions: one(evolutions, {
+    fields: [pokemon.id],
+    references: [evolutions.pokemonId],
+  }),
+
+  measurements: one(measurements, {
+    fields: [pokemon.id],
+    references: [measurements.pokemonId],
   }),
 }));
