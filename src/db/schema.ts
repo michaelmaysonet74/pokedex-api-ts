@@ -55,7 +55,8 @@ export const baseStats = pgTable("base_stats", {
 
   pokemonId: integer("pokemon_id")
     .notNull()
-    .references(() => pokemon.id),
+    .references(() => pokemon.id)
+    .unique(),
 
   hp: integer("hp").notNull(),
   attack: integer("attack").notNull(),
@@ -77,7 +78,8 @@ export const evolutions = pgTable("evolution_chains", {
 
   pokemonId: integer("pokemon_id")
     .notNull()
-    .references(() => pokemon.id),
+    .references(() => pokemon.id)
+    .unique(),
 
   from: jsonb("from").$type<EvolutionNode>().notNull(),
   to: jsonb("to").$type<EvolutionNode[]>().notNull(),
@@ -95,7 +97,8 @@ export const measurements = pgTable("measurements", {
 
   pokemonId: integer("pokemon_id")
     .notNull()
-    .references(() => pokemon.id),
+    .references(() => pokemon.id)
+    .unique(),
 
   height: text("height").notNull(),
   weight: text("weight").notNull(),
