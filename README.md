@@ -4,22 +4,18 @@ Microservice for fetching Pokémon data.
 
 ## Getting Started
 
-### Requirements
-
-Bun `v1.3.11`
-
 ### Usage
 
 Install dependencies:
 
 ```sh
-bun install
+npm install
 ```
 
 Start the server:
 
 ```sh
-bun run dev
+npm run dev
 ```
 
 The application will start on http://localhost:8080.
