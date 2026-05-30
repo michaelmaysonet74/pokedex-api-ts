@@ -48,7 +48,7 @@ export const typeDefs = `
   }
 
   type Query {
-    pokemonById(id: Int!): Pokemon
+    pokemonById(id: ID!): Pokemon
     pokemonByName(name: String!): Pokemon
   }
 `;
