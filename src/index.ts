@@ -12,7 +12,4 @@ app.use(logger());
 app.use("/graphql", async (c) => gql.handle(c.req.raw));
 app.route("/api", api);
 
-serve({
-  fetch: app.fetch,
-  port,
-});
+serve({ ...app, port });
