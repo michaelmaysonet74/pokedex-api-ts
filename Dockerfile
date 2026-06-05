@@ -1,13 +1,13 @@
-FROM node:25-alpine
+FROM oven/bun:latest
 
 WORKDIR /app
 
 COPY package.json ./
 
-RUN npm install
+RUN bun install
 
 COPY src/ ./src/
 
 EXPOSE 8080
 
-CMD ["npx", "tsx", "src/index.ts"]
+CMD ["bun", "run", "src/index.ts"]

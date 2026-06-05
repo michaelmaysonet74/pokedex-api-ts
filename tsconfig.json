@@ -3,6 +3,6 @@
     "strict": true,
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "types": ["node", "@types/pg"],
+    "types": ["bun", "@types/pg"],
   }
 }
