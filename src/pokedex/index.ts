@@ -36,9 +36,7 @@ const findPokemonBy = async (col: PgColumn, query: Query) =>
     return buildPokemon(pokemonResult);
   });
 
-const getPokemonById = async (id: number) => findPokemonBy(pokemon.id, id);
-
-const getPokemonByName = async (name: string) =>
-  findPokemonBy(pokemon.name, name);
-
-export default { getPokemonById, getPokemonByName };
+export default {
+  getPokemonById: (id: number) => findPokemonBy(pokemon.id, id),
+  getPokemonByName: (name: string) => findPokemonBy(pokemon.name, name),
+};
