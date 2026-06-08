@@ -8,4 +8,18 @@ const options = {
   ttl: ONE_HOUR,
 };
 
-export default new LRUCache(options);
+const cache = new LRUCache(options);
+
+export const cacheResult = async <KeyT extends {}, ResultT>(
+  key: KeyT,
+  cb: () => Promise<ResultT>,
+) => {
+  console.log({ key, cacheSize: cache.size });
+  if (cache.has(key)) {
+    return cache.get(key) as ResultT;
+  }
+
+  const result = (await cb()) ?? undefined;
+  cache.set(key, result);
+  return result;
+};
