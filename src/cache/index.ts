@@ -14,7 +14,6 @@ export const cacheResult = async <KeyT extends {}, ResultT>(
   key: KeyT,
   cb: () => Promise<ResultT>,
 ) => {
-  console.log({ key, cacheSize: cache.size });
   if (cache.has(key)) {
     return cache.get(key) as ResultT;
   }
