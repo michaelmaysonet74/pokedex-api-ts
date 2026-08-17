@@ -20,5 +20,6 @@ export const cacheResult = async <KeyT extends {}, ResultT>(
 
   const result = (await cb()) ?? undefined;
   cache.set(key, result);
+
   return result;
 };
