@@ -8,12 +8,12 @@ import { buildPokemon } from "./pokemon";
 
 export type Pokemon = ReturnType<typeof buildPokemon>;
 type MaybePokemon = Pokemon | undefined;
-type Query = string | number;
+type CompValue = string | number;
 
-const findPokemonBy = async (col: PgColumn, query: Query) =>
-  cacheResult<Query, MaybePokemon>(query, async () => {
+const findPokemonBy = async (col: PgColumn, val: CompValue) =>
+  cacheResult<CompValue, MaybePokemon>(val, async () => {
     const pokemonResult = await db.query.pokemon.findFirst({
-      where: eq(col, query),
+      where: eq(col, val),
       with: {
         abilities: true,
         baseStats: true,
