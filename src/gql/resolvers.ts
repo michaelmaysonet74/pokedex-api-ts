@@ -7,6 +7,14 @@ const resolvers = {
 
     pokemonByName: (_: unknown, { name }: { name: string }) =>
       pokedex.getPokemonByName(name),
+
+    pokemonByGeneration: (_: unknown, { generation }: { generation: number }) =>
+      pokedex.listPokemonByGeneration(generation),
+
+    listPokemon: (
+      _: unknown,
+      { limit, offset }: { limit?: number; offset?: number },
+    ) => pokedex.listPokemon({ limit, offset }),
   },
 };
 
